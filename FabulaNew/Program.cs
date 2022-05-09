@@ -1,16 +1,20 @@
 using Fabula.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("appDb");
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ForumContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddIdentity<User, IdentityRole>(options => {
     options.Password.RequiredLength = 8;
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = true;
-  }).AddEntityFrameworkStores<ForumContext>()
-    .AddDefaultTokenProviders();
+}).AddEntityFrameworkStores<ForumContext>()
+  .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
