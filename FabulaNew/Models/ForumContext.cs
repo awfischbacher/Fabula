@@ -10,7 +10,7 @@ namespace Fabula.Models
         public ForumContext(DbContextOptions<ForumContext> options)
             : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> UserGroup { get; set; }
         public DbSet<UserSettings> Settings { get; set; }
 
         public DbSet<Post> Posts { get; set; }
